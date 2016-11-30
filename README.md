@@ -1,2 +1,2 @@
 #Clarity
-Helps you study
+Helps you find the clothes you want, The Right Way™
