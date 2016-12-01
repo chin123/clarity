@@ -7,7 +7,9 @@ def results(request):
 
     if request.method == "POST":
         query = request.POST.get("search")		
+        query = query.lower()
         sp_query = query.split()
+        print(sp_query)
         path = "/Users/sireesh/Documents/School/11B/Computers/clarity/Clarity/Results/subs/"
         sub_buf  = []
         sub_files = listdir(path)
@@ -22,11 +24,13 @@ def results(request):
             sub_contents = cont_str.split()
             score = 0
             for j in sub_contents:
+                j = j.lower()
                 if j in sp_query:
                     score += 1
             if score > max_score:
                 max_score = score
                 best_file = sub_path
+        maxlineno = 0
         if best_file != "":
             f = open(best_file, 'r')
             sub_lines = f.readlines()
