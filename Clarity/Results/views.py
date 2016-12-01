@@ -52,7 +52,18 @@ def results(request):
             if ists:
                 line = sub_lines[maxlineno - 2]
 
-            return render(request, 'Results/index.html', {'best_hit': best_file[len(path):], 'line': line})
+            pos = 0
+            yturl = ""
+            for i in best_file:
+                if i == '-':
+                    yturl = best_file[pos+1:len(best_file) - 7]
+                pos += 1
+
+            line = line.replace('.', ':')
+            ts_spl = line.split(":")
+            time = ts_spl[0] + "h" + ts_spl[1] + "m" + ts_spl[2] + "s"
+
+            return render(request, 'Results/index.html', {'best_hit': best_file[len(path):], 'line': line, 'yturl': "https://youtu.be/" + yturl + "?t=" +  time})
         else :
             return render(request, 'Results/index.html', {'best_hit': "Term not found"})
     else:
