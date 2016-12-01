@@ -3,7 +3,11 @@ from os import listdir
 
 # Create your views here.
 
+def calcScore(parse_file):
+    contents = open(parse_file, "r")
+
 def results(request):
+
     if request.method == "POST":
         query = request.POST.get("search")		
         sp_query = query.split()
@@ -13,6 +17,7 @@ def results(request):
         parsed_subs = []
         max_score = 0
         best_file = ""
+
         for i in sub_files:
             sub_path = path + i
             contents = open(sub_path, "r")
@@ -25,7 +30,8 @@ def results(request):
             if score > max_score:
                 max_score = score
                 best_file = sub_path
-        print(best_file)
-        return render(request, 'Results/index.html', {})
+        f = open(best_file, 'r')
+        sub_lines = f.readlines()
+        return render(request, 'Results/index.html', {'best_hit': best_file})
     else:
         return render(request, 'Results/index.html', {})
