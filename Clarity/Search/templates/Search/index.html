@@ -33,9 +33,9 @@
 				</div>
 				<div class="row center">
 					<div class="input-field col s6 offset-s3">
-						<form action="/result/" method="POST" class="post-form">
+						<form action="/results/" method="POST" class="post-form">
 							{% csrf_token %}
-							<input id="search_bar" type="text" class="validate">
+							<input id="search_bar" type="text" class="validate" name="search">
 							<label for="search_bar">Search</label>
 							<button class="btn waves-effect waves-light" type="submit" name="action">Search
 								<i class="material-icons right">send</i>
