@@ -27,19 +27,33 @@ def results(request):
             if score > max_score:
                 max_score = score
                 best_file = sub_path
-        f = open(best_file, 'r')
-        sub_lines = f.readlines()
-        max_score = 0
-        line = ""
-        for i in sub_lines:
-            score = 0
-            words = i.split()
-            for j in words:
-                if j in sp_query:
-                    score += 1
-            if score > max_score:
-                max_score = score
-                line = i
-        return render(request, 'Results/index.html', {'best_hit': best_file, 'line': line})
+        if best_file != "":
+            f = open(best_file, 'r')
+            sub_lines = f.readlines()
+            max_score = 0
+            line = ""
+            lineno = 0
+            for i in sub_lines:
+                lineno += 1
+                score = 0
+                words = i.split()
+                for j in words:
+                    if j in sp_query:
+                        score += 1
+                if score > max_score:
+                    max_score = score
+                    line = i
+                    maxlineno = lineno
+            
+            ists = not any(j.isalpha() for j in sub_lines[maxlineno - 1])
+            if ists:
+                line = sub_lines[maxlineno - 1]
+            ists = not any(j.isalpha() for j in sub_lines[maxlineno - 2])
+            if ists:
+                line = sub_lines[maxlineno - 2]
+
+            return render(request, 'Results/index.html', {'best_hit': best_file[len(path):], 'line': line})
+        else :
+            return render(request, 'Results/index.html', {'best_hit': "Term not found"})
     else:
         return render(request, 'Results/index.html', {})
