@@ -1,14 +1,21 @@
 from django.shortcuts import render
 from os import listdir
+import RAKE
 
 # Create your views here.
 
 def results(request):
 
+    Rake = RAKE.Rake("/Users/sireesh/Downloads/FoxStoplist.txt")
     if request.method == "POST":
+
         query = request.POST.get("search")		
         query = query.lower()
-        sp_query = query.split()
+        sp_query = []
+        results = Rake.run(query)
+        for i in results:
+            for j in range(0,int(i[1])):
+                sp_query.append(i[0])
         print(sp_query)
         path = "/Users/sireesh/Documents/School/11B/Computers/clarity/Clarity/Results/subs/"
         sub_buf  = []
