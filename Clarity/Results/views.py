@@ -44,13 +44,11 @@ def results(request):
                     max_score = score
                     line = i
                     maxlineno = lineno
-            
-            ists = not any(j.isalpha() for j in sub_lines[maxlineno - 1])
-            if ists:
-                line = sub_lines[maxlineno - 1]
-            ists = not any(j.isalpha() for j in sub_lines[maxlineno - 2])
-            if ists:
-                line = sub_lines[maxlineno - 2]
+            for i in range(2,10): 
+                ists = not any(j.isalpha() for j in sub_lines[maxlineno - i])
+                if ists:
+                    line = sub_lines[maxlineno - i]
+                    break
 
             pos = 0
             yturl = ""
@@ -61,6 +59,7 @@ def results(request):
 
             line = line.replace('.', ':')
             ts_spl = line.split(":")
+            print(ts_spl, line)
             time = ts_spl[0] + "h" + ts_spl[1] + "m" + ts_spl[2] + "s"
 
             return render(request, 'Results/index.html', {'best_hit': best_file[len(path):], 'line': line, 'yturl': "https://youtu.be/" + yturl + "?t=" +  time})
