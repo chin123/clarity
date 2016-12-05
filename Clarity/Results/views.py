@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from os import listdir
+import os
 
 # Create your views here.
 
@@ -10,7 +11,7 @@ def results(request):
         query = query.lower()
         sp_query = query.split()
         print(sp_query)
-        path = "/Users/sireesh/Documents/School/11B/Computers/clarity/Clarity/Results/subs/"
+        path = os.path.dirname(os.path.abspath(__file__)) + "/subs/"
         sub_buf  = []
         sub_files = listdir(path)
         parsed_subs = []
