@@ -67,7 +67,7 @@ def results(request):
             print(ts_spl, line)
             time = ts_spl[0] + "h" + ts_spl[1] + "m" + ts_spl[2] + "s"
 
-            return render(request, 'Results/index.html', {'best_hit': best_file[len(path):], 'line': line, 'yturl': "https://youtu.be/" + yturl + "?t=" +  time})
+            return render(request, 'Results/index.html', {'best_hit': best_file[len(path):len(best_file) - 8 - len(yturl)], 'line': line, 'yturl': "https://youtu.be/" + yturl + "?t=" +  time})
         else :
             return render(request, 'Results/index.html', {'best_hit': "Term not found"})
     else:
