@@ -1,2 +1,2 @@
-#Clarity
+# Clarity
 Helps you study
